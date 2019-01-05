@@ -1,69 +1,66 @@
 \section{Grundlagen}\label{kap:grundlagen}
 In diesem Kapitel werden einige Grundlagen für die in Kapitel \ref{kap:featureextraktion} diskutierten Algorithmen besprochen.
 \subsection{Was sind Sensordaten}\label{kap:sensordaten}
-Um Maschinen zu steuern werden oft bidirektionale Datenflüsse verwendet. 
-Das Kontrollsystem gibt Anweisungen und reagiert anschließend auf das Feedback der Maschine. 
-Teilweise werden auch einfache Zeitschranken als Feedback verwendet. 
-Sensoren optimieren das Feedback für das Kontrollsystem. 
-Um Maschinen zu überwachen, können diese Feedback- und Sensordaten verwendet werden um beispielsweise Datenabweichungen festzustellen. 
-Weitere Umgebungssensoren, wie auch Kamereasysteme, Temperatur- und Kontaksensoren, bieten meist einen Informationshaltigen Datenbestand. 
-Dabei können Temperaturunterschiede, Verschlusszeiten, Druckaufbauzeiten u.ä. betrachtet werden. 
-Die spezielle Herausforderung bei Sensordaten ist der kontinuierliche Datenfluss. 
-Bei laufender Maschine werden stetig Daten generiert sowohl bei Gut- als auch Schlechtdurchläufen. 
-Die Anforderung an das Überwachungssystem ist somit die kontinuierliche Datenverarbeitung. 
-Es wird von einer Livedatenanalyse gesprochen.
-In der Livedatenanalyse müssen die Daten genauso schnell verarbeitet werden wie sie als Eingabe zur Verfügung stehen, damit sich kein \enquote{Datenstau} ergibt. 
 
-\begin{center}
-  -TODO- Beispieldatensatz
-\end{center}
-
+Um den Ablauf einer Maschine zu koordinieren und den aktuellen Zustand zu Überwachen werden oft Sensoren an den Maschinen angebracht. 
+Diese Daten werden zu definierten Taktzeiten aufgenommen und weiterverarbeitet. 
+Es kann sich dabei um einfache Kontaktsensoren handeln, mit einer begrenzten Anzahl an Zuständen oder Sensoren mit einem reellen Zustandsbereich wie Umgebungssensoren (Luftdruck-, Temperatursensor, etc.). 
+In Abbildung\ \ref{fig:datasetoffice} sind Sensordaten in Form eines Datenplots dargestellt. 
+Es handelt sich um Licht-, Temperatur- und Drucksensordarten aus einem Büro im Zeitraum eines Arbeitstages. 
+Abgebildet sind die Sensordaten zwischen $6:00$ Uhr und $19:00$Uhr.
 \begin{figure}
-  \centering
-  \includegraphics[width=.8\textwidth]{datasetOffice.png}
-  \caption{Sensordatenabweichung anhand von Licht, Temperatur und Drucksensoren im Buro innerhalb von einem Arbeitstag~\cite{moraru2010using}}
-  \label{fig:datasetoffice}
+    \centering
+    \includegraphics[width=.8\textwidth]{datasetOffice.png}
+    \caption{Sensordatenabweichung anhand von Licht, Temperatur und Luftfeuchtigkeit im Buro innerhalb von einem Arbeitstag~\cite{moraru2010using}}
+    \label{fig:datasetoffice}
 \end{figure}
 
-
-Abbildung \ref{fig:datasetoffice} zeigt die Sensordatenabweichung im Büro innerhalb eines Arbeitstages. 
-Zu jedem Zeitpunkt kann der Datensatz ausgewertet und differenziert werden. 
-Beispielsweise unterscheiden sich die Datenwerte von 8:00 Uhr und 9:99 Uhr masgeblich an der Helligkeit. 
-Mathematisch würde dieser Zeitpunkt als Vektor dargestellt werden.
+Um solche Sensordaten mathematisch weiterverarbeiten zu können, werden sie in Vektorform gebracht.
+Ein Datensatz zum Zeitpunkt $6:00$ Uhr mit den Werten Licht = $0$, Temperatur=$22$ und Luftfeuchtigkeit = $25$ könnte dargestellt werden als:
 \begin{equation}
-  x_1 =
-\begin{pmatrix}
-    38\\
-    20\\
-    25 
-\end{pmatrix}
-\end{equation}
-Durch die Vektordarstellung können die Datenpunkte anhand ihrer Parameter unterschieden werden. Durch betrachten von Zeitreihen, lassen sich an mehereren Tagen Muster erkennn. Solche Zeitreihendaten können Mathematisch als Matrix dargestellt werden.
-\begin{equation}
-  x_{1,4}
+    x_1 =
   \begin{pmatrix}
-      38 & 40 & 45 & 20\\
-      20 & 22 & 23 & 23\\
-      25 & 28 & 29 & 29
+      0\\
+      22\\
+      25
   \end{pmatrix}
 \end{equation}
 
-Um Mathematisch mehrere Tage in einen Datensatz darzustellen erhalten wir schon Tensoren.
+Ein Vektor enthält somit einen Seonsordatensatz zu einem Zeitpunkt. Um Zeiträume darzustellen werden die Daten in eine Matrixform gebracht. Beispielsweise erhält man bei einer Stündlichen Abtastrate und einem Zeitraum von $8:00$ Uhr bis $17:00$Uhr folgende Matrix:
+\begin{equation}
+    x_{1,10}
+    \begin{pmatrix}
+       38 & 40 & 46 & 24 & 60 & 58 & 51 & 44 & 40 & 36\\
+       20 & 22 & 22 & 24 & 24 & 24 & 20 & 18 & 20 & 17\\
+       25 & 28 & 28 & 28 & 29 & 30 & 20 & 27 & 29 & 26
+    \end{pmatrix}
+\end{equation}
+
+Diese mathematische darstellung ist nur ein Beispiel und kann beliebig strukturiert werden.
+
+Die erzeugte Matrix kann anschließend als Eingabe für Analysealgorithmen dienen.
+Schon bei diesen geringen Datenmengen entsteht eine $K x N $ große Matrix, wobei $K=$ Anzahl der Paramter (Sensoren) und $N=$ Anzahl der Daten.
+
+Sollen auch noch Daten Raumübergreifend analysiert werden, können diese in Form eines Tensors dargestellt werden. Bei $M$ vielen Räumen entsteht ein $K x N x M$ großer Tensor.
 Schon anhand dieses simplen Beispiels wird die Datenmenge und Komplexität der Daten ersichtlich.
-Algorithmen zur Livedatenanalyse solcher komoplexer Datenbestände werden in Kapitel \ref{kap:featureextraktion} besprochen.
+In der Maschinenüberwachung entstehen dadurch schnell Datensätze im Millionenbereichen und da jede Komponente einer Maschine oft mit mehereren Sensoren ausgestattet ist, entstehen riesige Tensoren.
 
-\begin{center}
-  -TODO- Es fehlt noch ein Kapitel für kurze ML einleitung. Regressionen, Klassifikationen. Und den Bezug zur Maschinenüberwachung. 
-\end{center}
+Neben klassischen Regressionsverfahren zur Datenanalyse, welche oft für Anomliedetektionen verwendet werden, gibt es auch verschiedene Klassifikationsverfahren. Dazu werden den Datensätzen manuell oder automatisiert Klassen hinzugefügt.
 
-Speziell in der Maschinenüberwachung ist das Ziel solche Daten nicht nur im aktuellen Zeitpunkt zu bewerten, sondern eine Vorhersage zu treffen. Angenommen wir betrachten einen Datensatz zum Zeitpunkt $t_1$. Dann besteht der zu bewertender Datensatz aus einem Tupel $\tau_1=(t_1,x_1)$. Diesem Tupel wird abhängig von den verwendeten Verfahren eine Klasse $y_1$ zugewiesen~\cite{gay2013feature}. Für den Zeitraum $(t_1,...,t_n)$ mit $n \in \mathbb{N}$ erhalten wir den Datensatz 
+Mathematisch dargestellt erhalten wir dann einen Datensatz zum Zeitpunkt $t_1$ in Form eines Tupels $\tau_1=(t_1,x_1)$. Diesem Tupel wird abhängig von den verwendeten Verfahren eine Klasse $y_1$ zugewiesen~\cite{gay2013feature}. Für den Zeitraum $(t_1,...,t_n)$ mit $n \in \mathbb{N}$ vielen Daten erhalten wir den Datensatz 
 \begin{equation}
   D=\{ (\tau_1,y_1), ... , (\tau_n,y_n) \}
   \label{equ:trainingset}
 \end{equation}
-Das Ziel ist das Tupel $(t_{n+1},y_{n+1})$ voherzusagen.
+Das Ziel kann es sein das Tupel $(t_{n+1},y_{n+1})$ voherzusagen.
 
-\subsection{Was versteht man unter Feature Extraktion}\label{kap:featureextraktionuebersicht}
+Es werden auch nicht nur feste Zeiträume betrachtet. 
+Durch dauerhaft laufende Maschinen entstehen kontinuierliche Datenströme.
+Daraus folgt ein kontiniuerlich wachsender Datenbestand.
+Um ressourcenschonend und möglichst in Echtzeit die Daten zu analysieren, werden harte Speicher- und Laufzeitbedinungen an Analysealgorithmen gestellt.
+
+
+\subsection{Feature Extraktion}\label{kap:featureextraktionuebersicht}
 In Kapitel \ref{kap:sensordaten} wurde ein Datensatz durch seine Muster und Merkmale beschrieben. Merkmale können einfache Parameter, wie Schwellwertüberschreitungen sein. In Komplexeren Datenstrukturen, können die Daten anhand von Verlaufsmustern unterschieden werden. 
 
 Um Algorithmen zu trainieren die Daten durch diese Merkmale und Muster zu unterscheiden, gibt es zwei wesentliche herangehensweisen. Es können die Merkmale dem Algorithmus vorgegeben und auf diese Merkmale trainiert werden, oder es werden Verfahren angewendet um diese Merkmale zu extrahieren. Es ist die Rede von \enquote{Feature Extraktion}. Ein \enquote{Feature} ist eines dieser Merkmale, wodurch Daten in einem Datensatz voneinander unterschieden werden können. 

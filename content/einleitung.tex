@@ -1,8 +1,4 @@
-\section{Einleitung}
-
-\begin{center}
-  -TODO- Umlaute
-\end{center}
+\section{Einleitung}\label{kap:einleitung}
 
 %Ein großer Bereich der vierten Industriegeneration ist das \enquote{Internet der Dinge} oder im Englischen \enquote{Internet of Things (IoT)}. 
 %Darunter versteht man ein erweitertes Konzept des aktuel bestehenden Internets. 
@@ -10,7 +6,7 @@
 %Durch diese Kommunikation entstehen Datenflüsse die einerseits in großen Rechenzentren gespeichert werden können und andererseits bieten sie eine Grundlage zur Livedatenanalyse.
 
 Maschinen bestehen oft aus mehreren Komponenten und sind anschließend Teil eines großen Systems.
-Um zu gewährleisten, dass das System korrekt funktioniert und auch möglichst selten ausfällt, werden Daten über Controllersysteme und Sensoren jeder einzelnen Komponente aufgenommen.
+Um zu gewährleisten, dass das System korrekt funktioniert und auch möglichst selten ausfällt, werden Daten über Kontrollsysteme und Sensoren jeder einzelnen Komponente aufgenommen.
 In einem großen System fallen durch kontinuierliche Datenaufnahme große Datenmengen an.
 Um schon preventiv Maschinenausfälle zu vermeiden werden diese Daten oft an Überwachungssysteme übertragen um anschließend mithilfe von Schwellwertüberschreitungen den Systemzustand darzustellen.
 Diese Datenbilder werden in Form von Diagrammen, Ampelsystemen, oder ähnlichem visualisiert und für den Menschen lesbar dargestellt.
@@ -21,7 +17,7 @@ Die Herausforderung dabei ist der kontinuierliche Datenfluss.
 Die Daten müssen, ähnlich zur Livedatenanalyse, direkt verarbeitet werden.
 Schwellwertüberschreitungen können diese Livedaten leicht verarbeiten, da jeweils nur ein Datenpunkt betrachtet werden muss.
 Nähere Zusammenhänge innerhalb eines Datenpakets oder sogar zwischen mehrere Datenpaketen zu erkennen ist Rechenaufwändiger.
-Betrachten man mehere Daten innerhalb eines Zeitfensters können diese Datenpunkte mittels Approximationen wie in Abbilding\ \ref{fig:FFETimeSeries} (a), (b) und (c) verglichen werden. 
+Betrachtt man mehere Daten innerhalb eines Zeitfensters können diese Datenpunkte mittels Approximationen wie in Abbilding\ \ref{fig:FFETimeSeries} (a), (b) und (c) verglichen werden. 
 Die Zeitreihendaten sehen in diesem Fall für Menschen nahezu gleich aus. 
 Dennoch kann durch Anwenden von Analysverfahren ein gewisser Unterschied erkannt werden.
 In Abbildung\ \ref{fig:FFETimeSeries} (d), wurden die Zeitreihen in einem Merkmalsraum, im englischen \enquote{Feature Space}, dargestellt. 
@@ -36,16 +32,16 @@ Zeireihe (b) unterscheidet sich etwas im Vergleich zu (a) und (c).
 \end{figure}
 
 
-Dieser Merkmalsraum wird durch das Analysieren der Daten auf gewissen Merkmale, im englischen \enquote{Features}, erstellt.
-Der Merkmalsraum bietet eine weitere Möglichkeit Datenmiteinander zu vergleichen, Anomalien zu erkennen oder die Daten zu klassifizieren. 
+Dieser Merkmalsraum wird durch das Analysieren der Daten auf gewisse Merkmale, im englischen \enquote{Features}, erstellt.
+Der Merkmalsraum bietet eine weitere Möglichkeit Daten miteinander zu vergleichen, Anomalien zu erkennen oder die Daten zu klassifizieren. 
 Um solche Verfahren anwenden zu können müssen diese Merkmale zuvor extrahiert werden. 
 Es ist die Rede von \enquote{Feature Extraktion}.
 
 In diesem Fall handelt es sich um eine polynomielle Approximation der Zeitreihendaten. 
 Diese muss in in jedem Zeitschritt für den gewählt Zeitraum neu berechnet werden. 
-Dies kann je nach Dimension des Polynoms sehr Rechenaufwändig und komplex werden.
+Dies kann je nach Dimension des zu approximierenden Polynoms sehr Rechenaufwändig und komplex werden.
 Bei einer hohen Abtastrate und einer großen Anzahl an Sensoren entstehen rießige Datenmengen, die unter harten Laufzeitbedingungen analysiert werden müssen.
-Ein weiterer Vorteil der \enquote{Feature Extraktion} ist das Reduzieren der komplexität der Daten. Die Daten müssen nicht mehr selbst über polynomielle Modelle analysiert werden, sondern die extrahierten Merkmalen können als Eingabe für die Analyseverfahren dienen. Somit können komplexe polynomielle Datenbilder mithilfe von beispielsweise linearer Verfahren analysiert werden.
+Ein weiterer Vorteil der \enquote{Feature Extraktion} ist das Reduzieren der Komplexität der Daten. Die Daten müssen nicht mehr selbst über polynomielle Modelle analysiert werden, sondern die extrahierten Merkmalen können als Eingabe für die Analyseverfahren dienen. Somit können komplexe polynomielle Datenbilder mithilfe von beispielsweise linearer Verfahren analysiert werden.
 
-In dieser Arbeit wird zu Beginn in Kapitel \ref{kap:grundlagen} die grundlegende Struktur von Sensordaten beschrieben, der Zusammenhang mit Livedaten diskutiert und anschließend die damit verbundene Verwendung von \enquote{Feature Extraktions Verfahren} besprochen. 
-In Kapitel \ref{kap:featureextraktion} werden die Randbedingungen und Herausforderungen an Algorithmen zur kontinuierlichen Livedatenanalyse besprochen und Ansatze sowie Algorithmen vorgestellt, die sich mit desem Probelmen auseinander setzen.
+In dieser Arbeit wird zu Beginn in Kapitel \ref{kap:grundlagen} die grundlegende Struktur von Sensordaten beschrieben, der Zusammenhang mit Livedaten diskutiert und anschließend die damit verbundene Verwendung von \enquote{Feature Extraktions} Verfahren besprochen. 
+In Kapitel \ref{kap:featureextraktion} werden die Randbedingungen und Herausforderungen an Algorithmen zur kontinuierlichen Livedatenanalyse besprochen und Ansätze sowie Algorithmen vorgestellt, die sich mit desem Problemen auseinander setzen.

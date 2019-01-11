@@ -1,1 +1,13 @@
-\section{Zusammenfassung}
+\section{Fazit}
+Die Möglichkeiten Maschinen zu Überwachen und den aktuellen Maschinenzustand mittels Sensorik zu bestimmen werden immer größer. Nicht nur gegenwärtige Zustände, sondern auch Zustandsvohersagen sind mittlerweile möglich. Dadurch, dass schon kleinste Komponenten einer Maschine Sensordaten sammeln und diese zur Analyse bereitstellen, entsteht eine rießige Masse an Daten zur weiterverarbeitung. Doch diese kontinuierlichen Datenflüsse stellen Lernalgorithmen an große Herausforderungen. 
+Die Lernanlgorithmen müssen unter harten Speicher- und Laufzeitanforderungen arbeiten und aus der Fülle an Daten die wichtigsten Informationen herausfiltern und diese auch möglichst noch für den Menschen verwendbar darstellen. 
+Sensordaten fangen meist als einfache numerische Werte an, werden über die Anzahl an Paramter zu Vektoren zusammengefasst und ergeben über Vielfalt und Zeit rießig dimensionale Tensoren. In dieser Arbeit werden Verfahren behandelt, welche diese Dimensionen für Lernalgorithmen durch Vorverarbeitung reduzieren.
+
+Dabei werden \enquote{Feature Extraktions} Verfahren angewendet. Unter einem \enquote{Feature} versteht man ein Merkmal, wodurch sich Daten unterscheiden lassen. Verschiedene Ansätze versuchen die relevantesten Merkmale auszuwählen (Feature Selektion) oder durch Berechnungen neuer Merkmale zu extrahieren (Feature Extraktion). 
+
+Einige dieser Ansätze bedienen sich bekannter Methoden, wordurch Datensätze mittels Transformationen parametrisiert werden und die koeffizienten als Merkmale weiterverwendet werden können. Die Darstellung der Sensordaten als Kurven in einem Datenplot bietet auch visuelle anssätze, indem die Daten Räumlich dargestellt werden und und dann durch Räumliche zuordnungen klassifiziert und durch Merkmale unterschieden werden können.
+
+Andere Ansätze versuchen den Berechnungsaufwand so zu beschränken, dass zu Beginn die Berechnung unabhängig von der Datensatzgröße ist und nur noch von der durch die Anzahl der Paramter bestimmten Dimension abhängt. Das anschließende Anwenden von \enquote{Feature Extraktion} leifert eine starke Laufzeiteinsparung.
+
+Leider ist nie garantiert, dass durch die Extraktion ein Informationsverlust besteht und daher gibt es keine generelle Lösung für alle Datensätze. Die sogenannten Domänenexperten, die Personen welche sich Fachlich mit den Daten auskennen, sind vorerst Teil der Perfekten Analysekonfiguration. 
+

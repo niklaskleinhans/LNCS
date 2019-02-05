@@ -1,36 +1,35 @@
 \section{Einleitung}\label{kap:einleitung}
 
-%Ein großer Bereich der vierten Industriegeneration ist das \enquote{Internet der Dinge} oder im Englischen \enquote{Internet of Things (IoT)}. 
-%Darunter versteht man ein erweitertes Konzept des aktuel bestehenden Internets. 
-%Es findet nicht mehr nur ein reiner Daten-/Informationsaustausch mittels unterschiedlicher Medientypen statt, sondern große Systeme bis hin zu kleinsten Komponenten werden Vernetzt und bilde eine Kommunikationsschicht~\cite{Jaspindustrie}.
-%Durch diese Kommunikation entstehen Datenflüsse die einerseits in großen Rechenzentren gespeichert werden können und andererseits bieten sie eine Grundlage zur Livedatenanalyse.
+Maschinen bestehen aus mehreren Komponenten und sind anschließend Teil eines großen Systems.
+Um zu gewährleisten, dass das System korrekt funktioniert und möglichst selten ausfällt, wird der Zustand mittels Überwachungssystemen möglichst genau ermittelt.
+Die Grundlage unterschiedlicher Analyseverfahren sind die aufgenommenen Systemdaten.
+Ein wesentlicher Teil davon sind Sensordaten, welche kontinuierlich in Datenspeichern abgelegt und weiterverarbeitet werden.
 
-Maschinen bestehen oft aus mehreren Komponenten und sind anschließend Teil eines großen Systems.
-Um zu gewährleisten, dass das System korrekt funktioniert und auch möglichst selten ausfällt, werden Daten über Kontrollsysteme und Sensoren jeder einzelnen Komponente aufgenommen.
 In einem großen System fallen durch kontinuierliche Datenaufnahme große Datenmengen an.
-Um schon preventiv Maschinenausfälle zu vermeiden werden diese Daten oft an Überwachungssysteme übertragen um anschließend mithilfe von Schwellwertüberschreitungen den Systemzustand darzustellen.
-Diese Datenbilder werden in Form von Diagrammen, Ampelsystemen, oder ähnlichem visualisiert und für den Menschen lesbar dargestellt.
-Es ist die Rede von \enquote{Condition-Monitoring}.
+Um schon preventiv Maschinenausfälle zu vermeiden werden diese Daten weiterverarbeitet und anschließend in Form von Diagrammen, Ampelsystemen, oder ähnlichem visualisiert und für den Menschen lesbar dargestellt.
+Es ist Beispielsweise die Rede von \enquote{Condition-Monitoring}. 
 
 Um noch mehr Informationen aus diesen Daten zu erhalten werden unterschiedliche Analyseverfahren angewendet um Anomalien festzustellen und auf diese anschließend zu reagieren.
+Eine \enquote{prädektive Instanthaltung} wired dann möglich, wenn diese Anomalien schon vorzeitig erkannt werden.
+
 Die Herausforderung dabei ist der kontinuierliche Datenfluss.
 Die Daten müssen, ähnlich zur Livedatenanalyse, direkt verarbeitet werden.
-Schwellwertüberschreitungen können diese Livedaten leicht verarbeiten, da jeweils nur ein Datenpunkt betrachtet werden muss.
-Nähere Zusammenhänge innerhalb eines Datenpakets oder sogar zwischen mehrere Datenpaketen zu erkennen ist Rechenaufwändiger.
-Betrachtt man mehere Daten innerhalb eines Zeitfensters können diese Datenpunkte mittels Approximationen wie in Abbilding\ \ref{fig:FFETimeSeries} (a), (b) und (c) verglichen werden. 
+Das hohe Datenvorkommen und die Korrelation der einzelnen Daten macht diese Analyse sehr komplex.
+Nähere Zusammenhänge innerhalb der Daten oder sogar zwischen mehrere Datenpaketen zu erkennen ist sehr Rechenaufwändig.
+Betracht man mehere Daten innerhalb eines Zeitfensters, dann können diese Daten mittels Approximationen wie in Abbilding\ \ref{fig:FFETimeSeries} (a), (b) und (c) verglichen werden. 
 Die Zeitreihendaten sehen in diesem Fall für Menschen nahezu gleich aus. 
-Dennoch kann durch Anwenden von Analysverfahren ein gewisser Unterschied erkannt werden.
+Die Approximation kann je nach Datenkomplexität sehr Rechenaufwändig werden und in diesem Fall ist der Informationsgewinn sehr eingeschränkt.
+Durch Anwenden von Analysverfahren kann ein gewisser Unterschied erkannt werden.
 In Abbildung\ \ref{fig:FFETimeSeries} (d), wurden die Zeitreihen in einem Merkmalsraum, im englischen \enquote{Feature Space}, dargestellt. 
 Zeireihe (a) und (c) sind weiterhin sehr ähnlich.
-Zeireihe (b) unterscheidet sich etwas im Vergleich zu (a) und (c).
+Zeireihe (b) unterscheidet sich etwas im Vergleich zu (a) und (c). 
 
 \begin{figure}
   \centering
-  \includegraphics[width=1\textwidth]{FastFeatureExtractionTimeSeries.png}
-  \caption{Drei standard ploynom Approximationen mittes least-squared. Die Drei Approximationen werden in Abbildung (d) in einem Merkmalsraum dargestellt~\cite{gensler2015fast}.}
+  \includegraphics[width=0.9\textwidth]{FastFeatureExtractionTimeSeries.png}
+  \caption{Drei standard ploynom Approximationen mittes least-squared. Die Drei Approximationen werden in Abbildung (d) in einem Merkmalsraum dargestellt~\cite{gensler2015fast}.} 
   \label{fig:FFETimeSeries}
 \end{figure}
-
 
 Dieser Merkmalsraum wird durch das Analysieren der Daten auf gewisse Merkmale, im englischen \enquote{Features}, erstellt.
 Der Merkmalsraum bietet eine weitere Möglichkeit Daten miteinander zu vergleichen, Anomalien zu erkennen oder die Daten zu klassifizieren. 

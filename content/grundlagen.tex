@@ -1,21 +1,25 @@
 \section{Grundlagen}\label{kap:grundlagen}
-In diesem Kapitel werden einige Grundlagen für die in Kapitel \ref{kap:featureextraktion} diskutierten Algorithmen besprochen.
+Sensordaten haben gewissen Eigenschaften die dazu führen, dass diese vor der Analyse vorverarbeitet werden müssen, um eine effiziente Anwendung von Algorithmen gewährleisten zu können. 
+In diesem Kapitel sollen diese Eigenschaften diskutiert und anschließend einige Grundlagen für die in Kapitel \ref{kap:featureextraktion} diskutierten Algorithmen zur Analyse von Sensordaten besprochen werden.
 \subsection{Was sind Sensordaten}\label{kap:sensordaten}
 
 Um den Ablauf einer Maschine zu koordinieren und den aktuellen Zustand zu Überwachen werden oft Sensoren an den Maschinen angebracht. 
 Diese Daten werden zu definierten Taktzeiten aufgenommen und weiterverarbeitet. 
 Es kann sich dabei um einfache Kontaktsensoren handeln, mit einer begrenzten Anzahl an Zuständen oder um Sensoren mit einem reellen Zustandsbereich, wie Umgebungssensoren (Luftdruck-, Temperatursensor, etc.). 
 In Abbildung\ \ref{fig:datasetoffice} sind Sensordaten in Form eines Datenplots dargestellt. 
-Es handelt sich um Licht-, Temperatur- und Luftfeuchtigkeitssensordarten aus einem Büro im Zeitraum eines Arbeitstages. 
+Es handelt sich um Licht-, Temperatur- und Luftfeuchtigkeitssensordaten aus einem Büro im Zeitraum eines Arbeitstages. 
 Abgebildet sind die Sensordaten zwischen $6:00$ Uhr und $19:00$Uhr.
 \begin{figure}
     \centering
     \includegraphics[width=.8\textwidth]{datasetOffice.png}
-    \caption{Sensordatenabweichung anhand von Licht, Temperatur und Luftfeuchtigkeit im Buro innerhalb von einem Arbeitstag~\cite{moraru2010using}}
+    \caption{Abweichung der Sensordaten anhand von Licht, Temperatur und Luftfeuchtigkeit im Büro innerhalb von einem Arbeitstag~\cite{moraru2010using}}
     \label{fig:datasetoffice}
 \end{figure}
 
-Um solche Sensordaten mathematisch weiterverarbeiten zu können, werden sie in Vektorform gebracht.
+In der Arbeit \enquote{Using machine learning on sensor data} von Alexandra Moraru et al. ~\cite{moraru2010using} wurde durch Aufnahme dieser Daten ein datengetriebenes Model entwickelt, welches erkennen kann, wieviele Personen sich zu einem Zeitpunkt im Büro befinden.
+
+Um solche Sensordaten zu verarbeiten müssen diese in eine mathematische Struktur gebracht werden. 
+Dazu werden Zeitpunkte aus den Datensätzen gewählt und in einem Vektor dargestellt.
 Ein Datensatz zum Zeitpunkt $6:00$ Uhr mit den Werten Licht = $0$, Temperatur=$22$ und Luftfeuchtigkeit = $25$ könnte dargestellt werden als:
 \begin{equation}
     x_1 =
@@ -26,7 +30,6 @@ Ein Datensatz zum Zeitpunkt $6:00$ Uhr mit den Werten Licht = $0$, Temperatur=$2
   \end{pmatrix}
   \in \mathbb{R}^D
 \end{equation}
-
 Ein Vektor enthält somit einen Sensordatensatz zu einem Aufnahmezeitpunkt. Um Zeiträume darzustellen werden die Daten in eine Matrixform gebracht. Beispielsweise erhält man bei einer stündlichen Abtastrate und einem Zeitraum von $8:00$ Uhr bis $17:00$Uhr folgende Matrix:
 \begin{equation}
     x_{1,10}
@@ -42,49 +45,71 @@ Diese mathematische Darstellung ist nur ein Beispiel und kann beliebig strukturi
 Die erzeugte Matrix kann anschließend als Eingabe für Analysealgorithmen dienen.
 Schon bei diesen geringen Datenmengen entsteht eine $D \times N $ große Matrix mit: 
 \begin{itemize}
-  \item $D=$ Anzahl der Paramter (Sensoren)
+  \item $D=$ Anzahl der Parameter (Sensoren)
   \item $N=$ Anzahl der Daten.
 \end{itemize}
 
 Sollen auch noch Daten Raumübergreifend analysiert werden, können diese in Form eines Tensors dargestellt werden. Bei $M$ vielen Räumen entsteht ein $D \times N \times M$ großer Tensor.
 Schon anhand dieses simplen Beispiels wird die Datenmenge und Komplexität der Daten ersichtlich.
-In der Maschinenüberwachung entstehen dadurch schnell Datensätze im Millionenbereichen und da jede Komponente einer Maschine oft mit mehereren Sensoren ausgestattet ist, entstehen riesige Tensoren.
+In der Maschinenüberwachung entstehen dadurch schnell Datensätze im Millionenbereichen und da jede Komponente einer Maschine oft mit mehreren Sensoren ausgestattet ist, entstehen riesige Tensoren.
 
-Neben klassischen Regressionsverfahren zur Datenanalyse, welche oft für Anomliedetektionen verwendet werden, gibt es auch verschiedene Klassifikationsverfahren. Dazu werden den Datensätzen manuell oder automatisiert Klassen hinzugefügt, welche jedem aufgenommenen Datenvektor eine Klasse zuordnet.
+Neben klassischen Regressionsverfahren zur Datenanalyse, welche oft für Anomaliedetektionen verwendet werden, gibt es auch verschiedene Klassifikationsverfahren. Dazu werden den Datensätzen manuell oder automatisiert Klassen hinzugefügt, welche jedem aufgenommenen Datenvektor eine Klasse zuordnet.
 
 Mathematisch dargestellt erhalten wir dann einen Datensatz zum Zeitpunkt $t_1$ in Form eines Tupels $\tau_1=(t_1,x_1)$. Die für den Zeitpunkt definierten Merkmale sind dann in $x_k$ mit $(k=1_d)$ und $d \in D$. Diesem Tupel wird abhängig von den verwendeten Verfahren eine Klasse $y_1$ zugewiesen~\cite{gay2013feature}. Für den Zeitraum $(t_1,...,t_n)$ mit $n \in \mathbb{N}$ vielen Daten erhalten wir den Datensatz 
 \begin{equation}
   K=\{ (\tau_{1_d},y_{1}), ... , (\tau_{n_d},y_n) \}
   \label{equ:trainingset}
 \end{equation}
-Das Ziel kann es sein das Tupel $(t_{n+1},y_{n+1})$ voherzusagen.
+Das Ziel kann es sein das Tupel $(t_{n+1},y_{n+1})$ vorherzusagen.
 
 Es werden auch nicht nur feste Zeiträume betrachtet. 
 Durch dauerhaft laufende Maschinen entstehen kontinuierliche Datenströme.
-Daraus folgt ein kontiniuerlich wachsender Datenbestand.
+Daraus folgt ein kontinuierlich wachsender Datenbestand.
 Um ressourcenschonend und möglichst in Echtzeit die Daten zu analysieren, werden harte Speicher- und Laufzeitbedinungen an Analysealgorithmen gestellt.
+
+Ein großer Vorteil der Sensordaten ist die starke Korrelation zwischen den Daten. Eine zum Zeitpunkt $t$ aufgenommener Datensatz enthält oftmals ähnliche Informationen wie vor $t$ aufgenommenen Datensätze. Durch diese Eigenschaft, können Daten schon oft im Voraus stark reduziert werden~\cite{morchen2003time}.
+Die Korrelation führt zusätzlich noch zu einer weiteren Informationsquelle, weshalb Sensordaten meist auch als Zeitreihendaten analysiert werden.
+Diese Analyse berücksichtigt nicht nur einzelne Datenpunkte, sondern setzt sie Zeitlich Verbindung.
+
 
 
 \subsection{Feature Extraktion}\label{kap:featureextraktionuebersicht}
-Im maschinellen Lernen werden im Wesentlichen zwei Methoden zur Datenanalyse betrachtet. Bei der \textbf{Regression} werden die Inputdaten auf Datenwerte reduziert ähnlich zur Approximation in Abbildung\ \ref{fig:FFETimeSeries}. Zu dem Bürodatensatz in Kapitel\ \ref{kap:sensordaten} könnte mithilfe von Regression die Anzahl an Mitarbeitern im Büro berechnet werden. In der \textbf{Klassifikation} werden Daten bestimmten Klassen zugeordnet. Im Gegensatz zur Regression würden nicht die Anzahl der Mitarbeiter, sondern Beispielsweise die Klassen \enquote{Büro besetzt} und \enquote{Büro unbesetzt} ausgegeben werden.
+Im maschinellen Lernen werden im Wesentlichen zwei Methoden zur Datenanalyse betrachtet. Bei der \textbf{Regression} werden die Eingabedaten auf Datenwerte reduziert ähnlich zur Approximation in Abbildung\ \ref{fig:FFETimeSeries}. Zu dem Datensatz aus den Sensordaten eines Büroalltags in Kapitel\ \ref{kap:sensordaten} könnte mithilfe von Regression die Anzahl an Mitarbeitern im Büro berechnet werden. In der \textbf{Klassifikation} werden Daten bestimmten Klassen zugeordnet. Im Gegensatz zur Regression würden nicht die Anzahl der Mitarbeiter, sondern Beispielsweise die Klassen \enquote{Büro besetzt} und \enquote{Büro unbesetzt} ausgegeben werden.
 
-In beiden Verfahren ist die Grundlage der Entscheidung der Dateninput und die dazu gehörigen Parameter. Somit ist die Einhaltung der Algorithmenschranken abhängig von den Parametern $D$. Es gibt unterschiedliche Gründe, wesshalb versucht wird die Anzahl der Inputparamter anzupassen:
+In beiden Verfahren ist die Grundlage der Entscheidung die Dateneingabe und die dazu gehörigen Parameter. Somit ist die Einhaltung der Algorithmenschranken (Speicher- und Laufzeitbedingungen) abhängig von den Parametern $D$. Es gibt unterschiedliche Gründe, weshalb versucht wird die Anzahl der Eingabeparameter anzupassen~\cite{alpaydin2014introduction}:
 \begin{itemize}
   \setlength{\itemsep}{3pt}
   \renewcommand\labelitemi{\textbullet}
-  \item Die Komplexität eines Lernalgorithmus hängt von der Anzahl an Eingabe Dimensionen $D$ und der Anzahl der Daten $N$ ab. Wird die Anzahl an Dimensionen und somit Paramtern reudziert, dann reduziert sich auch die Komplexität~\cite{alpaydin2014introduction}.
+  \item Die Komplexität eines Lernalgorithmus hängt von der Anzahl an Eingabe Dimensionen $D$ und der Anzahl der Daten $N$ ab. Wird die Anzahl an Dimensionen und somit Parametern reduziert, dann reduziert sich auch die Komplexität.
   \item Wenn die richtigen Parameter ausgewählt werden, sind die Algorithmen teilweise sogar stabiler~\cite{morchen2003time}
-  \item Wenn eine Eingabe keinen Einfluss auf die Funktion und das Ergebnis des Algorithmus hat, können diese Kosten eingespart werden~\cite{alpaydin2014introduction}.
-  \item Modelle aus Lernalgorithmen sind oft auf kleine Datensätze robuster, da diese eine geringere Variance und Rauschen aufweisen~\cite{alpaydin2014introduction}.
-  \item Wenn Daten durch weniger Merkmale beschrieben werden könne, bekommt der Mensch ein besseres Verständnis über den gesamten Prozess~\cite{alpaydin2014introduction}.
-  \item Je weniger Dimensionen, desto leichter die Visualisierung~\cite{alpaydin2014introduction}.
+  \item Wenn eine Eingabe keinen Einfluss auf die Funktion und das Ergebnis des Algorithmus hat, können diese Kosten eingespart werden.
+  \item Modelle aus Lernalgorithmen sind oft auf kleine Datensätze robuster, da diese eine geringere Varianz und Rauschen aufweisen.
+  \item Wenn Daten durch weniger Merkmale beschrieben werden können, bekommt der Mensch ein besseres Verständnis über den gesamten Prozess.
+  \item Je weniger Dimensionen, desto leichter die Visualisierung.
 \end{itemize}
 
-Aus diesen Gründen wird versucht die Anzahl der Eingabeparameter in einen Algorithmus möglichst zu reduzieren. Um so eine Dimensionsreduktion zu erreichen gibt es zweit Hauptansätze:
-\paragraph{Feature Selektion} ist ein Ansatz, indem die Dimension $D$ auf eine Dimension $L$ reduziert wird. Dabei werden interessante Parameter aus der Parametermenge entnommen und die restlichen $D-L$ Parameter werden verworfen. \enquote{Features} sind dabei Merkmale, wodurch sich Daten unterscheiden lassen. In diesem Ansatz sind die Merkmale direkt die ausgewählten Eingabeparameter~\cite{alpaydin2014introduction}.
+Aus diesen Gründen wird versucht die Anzahl der Eingabeparameter in einen Algorithmus möglichst zu reduzieren. Um so eine Dimensionsreduktion zu erreichen gibt es zwei Hauptansätze:
+\paragraph{Feature Selektion} ist ein Ansatz, indem die Dimension $D$ auf eine Dimension $L$ reduziert wird. Dabei werden interessante Parameter aus der Parametermenge entnommen und die restlichen $D-L$ Parameter werden verworfen.
+In Abbildung \ \ref{fig:featureselection} ist ein tabellarisches Beispiel zu sehen, an dem nur relevante Parameter ausgewählt werden.
+\enquote{Features} sind dabei Merkmale, wodurch sich Daten unterscheiden lassen. In diesem Ansatz sind die Merkmale direkt die ausgewählten Eingabeparameter~\cite{alpaydin2014introduction}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.8\textwidth]{featureselection.png}
+  \caption{Feature Selektion anhand eines Tabellenbeispiels. Es werden nur relevante Parameter ausgewählt.}
+  \label{fig:featureselection}
+\end{figure}
+
 
 \paragraph{Feature Extraktion} dagegen entnimmt nicht vorhandene Eingabeparameter sondern geniert bzw. extrahiert aus den vorhandenen Parameter neue Merkmale. Die Anzahl an Merkmalen ergibt die neue Dimension $L$ ~\cite{alpaydin2014introduction}.
 Merkmale können einfache, auf die Parameter angewedete, Funktionen sein, wie in Abbildung\ \ref{fig:FFETimeSeries} der Durchschnitt und die Steigung im Merkmalsraum (d). Oder komplexere Parameterkombinationen in höher Dimensionalenräumen, wie Verlaufsmuster von Raumflächen.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.8\textwidth]{featureextraction.png}
+  \caption{Feature Extraktion anhand eines Tabellenbeispiels. Es werden aus den bisherigen Parametern neue Parameter erstellt.}
+  \label{fig:featureextraktion}
+\end{figure}
 
 Auf Lernalgorithmen angewendet ist es letztlich immer das Ziel die Features so zu wählen und zu parametrisieren, dass der ermittelte Wert oder die ermittelten Zuordnung aus einem Lernalgorithmus dem tatsächlichen möglichst ähneln. Formal beschrieben anhand dem Datensatz \ref{equ:trainingset}. Sei $p(x_i)$ die Funktion, welche das Ergebnis des gewählten Algorithmus und des Trainingsdatensatzes ist. Es soll versucht werden den Fehlerunterschied
 
@@ -92,4 +117,4 @@ Auf Lernalgorithmen angewendet ist es letztlich immer das Ziel die Features so z
   \sigma = p(x_i)-y_i
 \end{equation}
 
-möglichst zu reduzieren~\cite{gensler2015fast}. Die konkreten Herausforderungen und Herangehensweisen in der Maschinenüberwachung werden in dem folgenden Kapitel besprochen
+möglichst zu reduzieren~\cite{gensler2015fast}. Die konkreten Herausforderungen und Herangehensweisen in der Maschinenüberwachung werden in dem folgenden Kapitel besprochen.

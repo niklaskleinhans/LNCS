@@ -1,20 +1,33 @@
 \section{Verwandte Arbeiten}
 Viele Arbeiten  beschäftigen sich damit Sensordaten mit Hilfe von analytischen Methoden zu verarbeiten. 
 Ein Beispiel ist die Arbeit \enquote{Using Machine Learning on Sensor Data} von Alexandra Moraru et al.~\cite{moraru2010using}. 
-In dieser wird die Anzahl von Mitarbeitern im Büro anhand von Sensordaten vorhergesagt.
+In dieser Arbeit wird die Anzahl von Mitarbeitern im Büro anhand von Sensordaten vorhergesagt.
 Dabei werden klassische Klassifikations- und Regressionsverfahren angewendet und validiert. 
-Die Verfahren werden auf einen Trainingsdatensatz trainiert und anschließend auf weitere Datenpakete angewendet. 
-Dabei wurden die Merkmale, an welchen die Anzahl der Mitarbeiter vorhergesagt werden sollen vordefiniert. 
+Die Verfahren werden auf einen Trainingsdatensatz trainiert und anschließend auf weitere Testdaten angewendet. 
+Die Merkmale entsprechen den verwendeten Parameterwerten. 
+In diesem Fall ist die Anzahl dieser Parameter nicht sehr groß. 
+Da die Daten nachverarbeitet werden und nicht unter die starken Speicher- und Laufzeitbedingungen Fallen, ist in diesem Fall keine Komplexitätsreduktion notwendig.
 
-Bei komplexeren Problemen, wie bei der Maschinenüberwachung, müssen die Merkmale oft erst gefunden werden. 
+Bei komplexeren Problemen, wie bei der Maschinenüberwachung, werden die Merkmale vorerst extrahiert, um die Daten vergleichen zu können und um die Komplexität zu reduzieren.  
 Diese Merkmale können neben einfachen Schwellwertüberschreitungen auch beispielsweise gewisse Datenmuster sein. 
-Diese  Andre Gensler, Thiemo Gruber und Bernhard Sick beschreiben Verfahren in ihrer Arbeit \enquote{Fast Feature Extraction For Time Series Analysis Using Least-Squares Approximations with Orthogonals Basis Functions}, mit welchen sie diese Merkmale, unter harter Laufzeit und Speicheranforderungen, erkennen. 
+Andre Gensler, Thiemo Gruber und Bernhard Sick beschreiben in ihrer Arbeit \enquote{Fast Feature Extraction For Time Series Analysis Using Least-Squares Approximations with Orthogonals Basis Functions} ein Verfahren, mit welchen sie diese Merkmale, unter harter Laufzeit und Speicheranforderungen, ermitteln~\cite{gensler2015fast}. 
 
-Die Analyseverfahren benötigen oft sehr viel Rechenleistung da die Proleme, welche einer nicht linearen Komplexität entsprechen, sehr aufwändig zu Berechnen sind. 
+Die Analyseverfahren benötigen oft sehr viel Rechenleistung da die Probleme, welche einer nicht linearen Komplexität entsprechen, sehr aufwändig zu Berechnen sind. 
 Man spricht dabei von Höherdimensionalen Problemen. 
-Fabian Mörchen beschreibt in seiner Arbeit \enquote{Time series feature extraction for data mining using DWT and DFT} eine Methode um die Dimension von Zeitreihendaten zu reduzieren. 
-Er Optimiert dabei die Auswahl der Koeffizienten und reduziert damit den Berechnungsaufwand für Analyseverfahren.
+Fabian Mörchen beschreibt in seiner Arbeit \enquote{Time series feature extraction for data mining using DWT and DFT} eine Methode um die Dimension von Zeitreihendaten zu reduzieren~\cite{morchen2003time}. 
+Er stellt die Zeitreihendaten mittels Fourier Transformation periodisch dar und verwendet die beschreibenden Parameter als Merkmale.
+Um nicht alle Parameter als Merkmale zu verwenden, beschreibt er eine von ihm definierte Aggregatfunktion.
+Aggregationsfunktionen sind Funktionen, die Eigenschaften von Daten zusammenfassen.  
+In diesem Fall werden die Informationshaltigsten Parameter für die Fourier-Darstellung ausgewählt.
+Aggregationsfunktionen sind Funktionen, die Eigenschaften von Daten zusammenfassen.  
+Er erzeugt damit eine messbare Darstellung der Daten in einem reduzierten Rahmen um damit den Berechnungsaufwand zur Analyse zu reduzieren.
 
-\begin{center}
-  -TODO- Die weiteren Referenzen zusammenfassen
-\end{center}
+Weitere Verfahren werden in dem Artikel \enquote{Time Series Feature Extraction} von Michael A. Trovero und Michael J. Leonard. vorgestellt~\cite{Leonard2018}. 
+Sie konzentrieren sich dabei auf verschiedene Möglichkeiten die Zeitreihen in Merkmale zu Zerlegen.
+Beispielsweise nutzen sie additive oder multiplikative Zerlegungsverfahren, welche die Daten auf eine feste Merkmalsmenge reduzieren.
+Es wird in ihrer Arbeit auch ein Verfahren zur Motivfindung beschrieben. Die Anzahl an gefundenen Motiven ergibt die Anzahl an messbaren Merkmalen.
+
+Dominique Gay, Romain Guigoures, Marc Boulle, and Fabrice Clerot stellen in ihrer Arbeit \enquote{Feature Extraction over Multiple Representations for Time Series Classification} eine Möglichkeit vor, die Daten anhand von einem Koordinatengitter zu beschreiben~\cite{Gay2013}.
+Dabei werden die klassifizierten Trainingsdaten in ein Dreidimensionalen Raum dargestellt und anhand der Anzahl in einem Gitter vorkommenden Datenpunkten bewertet.
+Dabei werden stark frequente Gitter als Merkmale extrahiert. 
+Als Ergebnis können neue nicht klassifizierte Daten anhand der Gitterzuordnung in die jeweiligen Klassen zugeordnet werden. 
